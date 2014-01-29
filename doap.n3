@@ -1,0 +1,86 @@
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#>.
+@prefix doap: <http://usefulinc.com/ns/doap#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix owconfig: <http://ns.ontowiki.net/SysOnt/ExtensionConfig/> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix event: <http://ns.ontowiki.net/SysOnt/Events/> .
+@prefix : <https://raw.github.com/AKSW/imagehelper.ontowiki/master/doap.n3#> .
+
+<> foaf:primaryTopic :imagehelper .
+:imagehelper a doap:Project ;
+  doap:name "imagehelper" ;
+  rdfs:label "Image Helper Extension" ;
+  doap:homepage <https://github.com/AKSW/imagehelper.ontowiki>;
+  doap:description "Rewrites a given value of a resource to an image URL and displays this image in a module" ;
+  doap:maintainer <http://aksw.org/NatanaelArndt> ;
+  :license "http://opensource.org/licenses/gpl-license.php GNU General Public License (GPL)" ;
+
+  owconfig:privateNamespace : ;
+  owconfig:enabled "true"^^xsd:boolean ;
+  owconfig:templates "templates/" ;
+  owconfig:languages "languages/" ;
+  owconfig:hasModule :ImageHelper ;
+
+  owconfig:registeredAt <http://extensions.ontowiki.net/repository> ;
+  doap:release :v1 .
+
+
+:v1 a doap:Version ;
+  doap:revision "1.0" ;
+  doap:created "2014-01-29" ;
+  owconfig:minOWVersion "0.9.10" ;
+  doap:file-release <https://github.com/AKSW/imagehelper.ontowiki/zipball/v1.0> .
+
+<http://aksw.org/NatanaelArndt> a foaf:Person;
+  foaf:name "Natanael Arndt" ;
+  foaf:homepage <http://aksw.org/NatanaelArndt>;
+  foaf:mbox <mailto:arndtn@informatik.uni-leipzig.de> .
+
+:ImageHelper a owconfig:Module ;
+  rdfs:label "Image Helper" ;
+  owconfig:priority "10" ;
+  rdfs:label "Image Helper" ;
+  owconfig:context (
+    "main.window.properties"
+  ) .
+
+:imagehelper owconfig:config [
+      a owconfig:Config;
+      owconfig:id "properties";
+      owconfig:config [
+          a owconfig:Config;
+          owconfig:id "EISSN";
+          :property <http://vocab.ub.uni-leipzig.de/bibrm/EISSN> ;
+          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
+          :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
+      ] ;
+      owconfig:config [
+          a owconfig:Config;
+          owconfig:id "PISSN";
+          :property <http://vocab.ub.uni-leipzig.de/bibrm/PISSN> ;
+          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
+          :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
+      ] ;
+      owconfig:config [
+          a owconfig:Config;
+          owconfig:id "hasEISSN";
+          :property <http://vocab.ub.uni-leipzig.de/bibrm/hasEISSN> ;
+          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
+          :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
+      ] ;
+      owconfig:config [
+          a owconfig:Config;
+          owconfig:id "hasPISSN";
+          :property <http://vocab.ub.uni-leipzig.de/bibrm/hasPISSN> ;
+          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
+          :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
+      ]
+];
+ :dontShowController (
+      "model"
+      "application"
+      "error"
+      "debug"
+      "module"
+      "index"
+ ) .
