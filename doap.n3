@@ -50,29 +50,15 @@
       owconfig:config [
           a owconfig:Config;
           owconfig:id "EISSN";
-          :property <http://vocab.ub.uni-leipzig.de/bibrm/EISSN> ;
-          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
+          :property <http://vocab.ub.uni-leipzig.de/bibrm/eissn> ;
+          :pattern "/^urn:ISSN:([-0-9xX]+)$/i" ;
           :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
       ] ;
       owconfig:config [
           a owconfig:Config;
           owconfig:id "PISSN";
-          :property <http://vocab.ub.uni-leipzig.de/bibrm/PISSN> ;
-          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
-          :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
-      ] ;
-      owconfig:config [
-          a owconfig:Config;
-          owconfig:id "hasEISSN";
-          :property <http://vocab.ub.uni-leipzig.de/bibrm/hasEISSN> ;
-          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
-          :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
-      ] ;
-      owconfig:config [
-          a owconfig:Config;
-          owconfig:id "hasPISSN";
-          :property <http://vocab.ub.uni-leipzig.de/bibrm/hasPISSN> ;
-          :pattern "/^urn:issn:([-0-9x]+)$/i" ;
+          :property <http://vocab.ub.uni-leipzig.de/bibrm/pissn> ;
+          :pattern "/^urn:ISSN:([-0-9xX]+)$/i" ;
           :replacement <http://www.worldcat.org/xissn/titlehistory/cgi-bin/webdot/xissn/titlehistory/dot/issns/$1.dot.dot.png>
       ]
 ];
