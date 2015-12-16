@@ -20,7 +20,19 @@ class ImagehelperModule extends OntoWiki_Module
 
     public function shouldShow()
     {
-        return true;
+        $query = new Erfurt_Sparql_SimpleQuery();
+        $query->setProloguePart('SELECT DISTINCT ?type')
+            ->setWherePart(
+                'WHERE {<' . (string)$this->_owApp->selectedResource . '> a ?type.}'
+            );
+        if ($results = $this->_owApp->selectedModel->sparqlQuery($query)) {
+            foreach ($results as $result) {
+                if (in_array('http://purl.org/ontology/bibo/Periodical', $result)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     /**
@@ -45,23 +57,23 @@ class ImagehelperModule extends OntoWiki_Module
         $this->view->imageUrl = array();
         if (count($properties) > 0) {
             $sparql = 'SELECT ?property ?value WHERE {';
-            $sparql.= ' <' . $resourceUri . '> ?property ?value .';
-            $sparql.= ' FILTER(';
+            $sparql .= ' <' . $resourceUri . '> ?property ?value .';
+            $sparql .= ' FILTER(';
             foreach ($properties as $setup) {
-                $sparql.= ' sameTerm(?property, <' . $setup->property . '>) ||';
+                $sparql .= ' sameTerm(?property, <' . $setup->property . '>) ||';
             }
             $sparql = substr($sparql, 0, -2);
-            $sparql.= ' )';
-            $sparql.= '}';
+            $sparql .= ' )';
+            $sparql .= '}';
 
-            $results   = $this->_owApp->selectedModel->sparqlQuery($sparql);
+            $results = $this->_owApp->selectedModel->sparqlQuery($sparql);
 
             $properties = $properties->toArray();
             $properties = $this->_array_index($properties, 'property');
 
             foreach ($results as $row) {
-                $value       = $row['value'];
-                $property   = $row['property'];
+                $value = $row['value'];
+                $property = $row['property'];
                 $ruleSpec = $properties[$property];
                 $this->view->imageUrl[] = preg_replace($ruleSpec['pattern'], $ruleSpec['replacement'], $value);
             }
@@ -77,7 +89,7 @@ class ImagehelperModule extends OntoWiki_Module
      * @param $key a string giving the key of the sub array to use as key for the super array
      * @return array
      */
-    private function _array_index ($array, $key)
+    private function _array_index($array, $key)
     {
         $out = array();
         foreach ($array as $subArray) {
